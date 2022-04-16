@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-in-app-update" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>InAppUpdate</name>
+	<description>In-App updates from Play Store for your Apache Cordova app.</description>
+	<license>MIT</license>
+	<keywords>android,in-app,update</keywords>
+
+	<engines>
+		<engine name="cordova" version=">=7.1.0" />
+		<engine name="cordova-android" version=">=6.3.0" />
+	</engines>
+
+	<js-module name="InAppUpdate" src="www/InAppUpdate.js">
+		<clobbers target="cordova.plugins.InAppUpdate" />
+	</js-module>
+
+	<platform name="android">
+		<framework src="com.google.android.play:core:1.7.2" />
+		<framework src="com.android.support:appcompat-v7:+" />
+		<framework src="com.android.support:design:+" />
+
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="InAppUpdate">
+				<param name="android-package" value="com.andreszs.inappupdate.InAppUpdate" />
+			</feature>
+		</config-file>
+
+		<source-file src="src/android/InAppUpdate.java" target-dir="src/com/andreszs/inappupdate" />
+	</platform>
+</plugin>
