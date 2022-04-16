@@ -113,7 +113,7 @@ cordova.plugins.InAppUpdate.updateImmediate(onSuccess, onFailure);
 
 ### setSnackbarOptions
 
-Notice this method is not mandatory, default (english) strings will be shown if now called.
+Notice this method is not mandatory, default (english) strings will be shown if not called.
 
 ```javascript
 var onSuccess = function (strSuccess) {
@@ -132,4 +132,11 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 ## Plugin Demo App
 
 Demo app to be released to Open Testing in the Play Store soon, please check back later.
+
+
+## Screenshots
+
+Screenshots coming soon.
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
