@@ -128,3 +128,8 @@ var snackbarButtonColor = "#76FF03";
 cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarText, snackbarButton, snackbarButtonColor);
 ```
 
+
+## Plugin Demo App
+
+Demo app to be released to Open Testing in the Play Store soon, please check back later.
+
