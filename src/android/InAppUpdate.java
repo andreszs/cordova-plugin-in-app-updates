@@ -41,11 +41,11 @@ public class InAppUpdate extends CordovaPlugin {
 	protected int activityResultRequestCode = 1714;
 	private final AtomicReference<CallbackContext> currentCallbackContext = new AtomicReference<CallbackContext>();
 	private FrameLayout layout;
-    private Snackbar snackbar;
+   private Snackbar snackbar;
+	private CallbackContext myCallbackContext;
 
 	private static int currentUpdateType;
 	private static AppUpdateManager appUpdateManager;
-//	private static InstallStateUpdatedListener listener;
 
 	private String snackbarText = "An update has just been downloaded.";
 	private String snackbarButton = "RESTART";
@@ -171,7 +171,7 @@ public class InAppUpdate extends CordovaPlugin {
 					snackbar.show();
 				}
 			});
-			//callbackContext.success("Update ready to install");
+			myCallbackContext.success("READY_TO_INSTALL");
 
 		} catch (Exception e) {
 
@@ -207,6 +207,7 @@ public class InAppUpdate extends CordovaPlugin {
 
 	private void updateFlexible(CallbackContext callbackContext) {
 		currentCallbackContext.set(callbackContext);
+		myCallbackContext = callbackContext;
 
 		currentUpdateType = AppUpdateType.FLEXIBLE;
 		cordova.setActivityResultCallback(this);
