@@ -39,14 +39,16 @@ import static com.google.android.play.core.install.model.ActivityResult.RESULT_I
  */
 public class InAppUpdate extends CordovaPlugin {
 
+	private static String LOG_TAG;
+	private static boolean PROMPTED = false;
+	private static int currentUpdateType;
+	private static AppUpdateManager appUpdateManager;
+
 	private final int activityResultRequestCode = 777;
 	private CordovaPlugin activityResultCallback;
 	private FrameLayout layout;
 	private Snackbar snackbar;
 	private CallbackContext callbackContext;
-
-	private static int currentUpdateType;
-	private static AppUpdateManager appUpdateManager;
 
 	private String snackbarText = "An update has just been downloaded.";
 	private String snackbarButton = "RESTART";
@@ -54,7 +56,8 @@ public class InAppUpdate extends CordovaPlugin {
 	private String snackbarButtonColor = "#76FF03";
 
 	public InAppUpdate() {
-		Log.i(InAppUpdate.class.getSimpleName(), "Constructed");
+		this.LOG_TAG = InAppUpdate.class.getSimpleName();
+		Log.i(LOG_TAG, "Constructed");
 	}
 
 	@Override
@@ -66,16 +69,17 @@ public class InAppUpdate extends CordovaPlugin {
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		this.callbackContext = callbackContext;
+		this.PROMPTED = false;
 
-		Log.i(InAppUpdate.class.getSimpleName(), String.format("Executing the %s action started", action));
+		Log.i(LOG_TAG, String.format("Executing the %s action started", action));
 		if (action.equals("getUpdateAvailability")) {
 			getUpdateAvailability(callbackContext);
 			return true;
 		} else if (action.equals("updateFlexible")) {
-			updateFlexible(callbackContext);
+			updateFlexible();
 			return true;
 		} else if (action.equals("updateImmediate")) {
-			updateImmediate(callbackContext);
+			updateImmediate();
 			return true;
 		} else if (action.equals("setSnackbarOptions")) {
 			setSnackbarOptions(args);
@@ -97,7 +101,7 @@ public class InAppUpdate extends CordovaPlugin {
 				Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
 
 				appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-					Log.i(InAppUpdate.class.getSimpleName(), String.format("appUpdateInfo.updateAvailability = %s", String.valueOf(appUpdateInfo.updateAvailability())));
+					Log.i(LOG_TAG, String.format("appUpdateInfo.updateAvailability = %s", String.valueOf(appUpdateInfo.updateAvailability())));
 					PluginResult result;
 					switch (appUpdateInfo.updateAvailability()) {
 						case UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS:
@@ -123,7 +127,7 @@ public class InAppUpdate extends CordovaPlugin {
 				}).addOnFailureListener(e -> {
 					// Returns "com.google.android.play.core.internal.al: Failed to bind to the service." whenever the Play Store is not available.
 					e.printStackTrace();
-					Log.e(InAppUpdate.class.getSimpleName(), e.toString());
+					Log.e(LOG_TAG, e.toString());
 					callbackContext.error(e.toString());
 
 				});
@@ -134,7 +138,7 @@ public class InAppUpdate extends CordovaPlugin {
 	}
 
 	public void setActivityResultCallback(CordovaPlugin plugin) {
-		Log.i(InAppUpdate.class.getSimpleName(), "setActivityResultCallback");
+		Log.i(LOG_TAG, "setActivityResultCallback");
 
 		// Cancel any previously pending activity.
 		if (this.activityResultCallback != null) {
@@ -144,7 +148,8 @@ public class InAppUpdate extends CordovaPlugin {
 	}
 
 	private void popupSnackbarForCompleteUpdate() {
-		Log.i(InAppUpdate.class.getSimpleName(), "popupSnackbarForCompleteUpdate");
+		Log.i(LOG_TAG, "popupSnackbarForCompleteUpdate");
+		this.PROMPTED = true;
 
 		try {
 			if (this.snackbar != null) {
@@ -170,7 +175,7 @@ public class InAppUpdate extends CordovaPlugin {
 
 		} catch (Exception e) {
 
-			Log.e(InAppUpdate.class.getSimpleName(), e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
 
 		}
 
@@ -179,7 +184,7 @@ public class InAppUpdate extends CordovaPlugin {
 	private void setSnackbarOptions(JSONArray args) {
 
 		PluginResult result;
-		Log.i(InAppUpdate.class.getSimpleName(), "setSnackbarOptions");
+		Log.i(LOG_TAG, "setSnackbarOptions");
 
 		try {
 
@@ -197,7 +202,7 @@ public class InAppUpdate extends CordovaPlugin {
 
 		} catch (Exception e) {
 
-			Log.e(InAppUpdate.class.getSimpleName(), e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
 			result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
 			this.callbackContext.sendPluginResult(result);
 
@@ -205,17 +210,17 @@ public class InAppUpdate extends CordovaPlugin {
 
 	}
 
-	private void updateFlexible(CallbackContext callbackContext) {
+	private void updateFlexible() {
 
 		currentUpdateType = AppUpdateType.FLEXIBLE;
 		cordova.setActivityResultCallback(this);
 
 		cordova.getThreadPool().execute(new Runnable() {
-			@Override
+			//@Override
+			InstallStateUpdatedListener installStateUpdatedListener;
+
 			public void run() {
 
-				//final PluginResult result_starting_download = new PluginResult(PluginResult.Status.OK, "STARTING_DOWNLOAD");
-				//result_starting_download.result.setKeepCallback(true);
 				// Creates instance of the manager.
 				appUpdateManager = AppUpdateManagerFactory.create(cordova.getContext());
 
@@ -223,66 +228,92 @@ public class InAppUpdate extends CordovaPlugin {
 				Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
 
 				// Create a listener to track request state updates.
-				InstallStateUpdatedListener listener = state -> {
-					if (state.installStatus() == InstallStatus.DOWNLOADED) {
-						// After the update is downloaded, show a notification and request user confirmation to restart the app.
-						Log.i(InAppUpdate.class.getSimpleName(), "InstallStateUpdatedListener : state.installStatus() == InstallStatus.DOWNLOADED");
+				installStateUpdatedListener = new InstallStateUpdatedListener() {
+					@Override
+					public void onStateUpdate(InstallState state) {
+						if (state.installStatus() == InstallStatus.DOWNLOADED) {
+							// Update downloaded.
+							Log.i(LOG_TAG, "InstallStateUpdatedListener: InstallStatus.DOWNLOADED");
 
-						popupSnackbarForCompleteUpdate();
-						callbackContext.success("DOWNLOADED");
+							// Unregister listener
+							appUpdateManager.unregisterListener(installStateUpdatedListener);
+
+							// Prevent multiple consecutive prompts of this event
+							if (!PROMPTED) {
+								popupSnackbarForCompleteUpdate();
+								PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADED");
+								callbackContext.sendPluginResult(result);
+							}
+						} else if (state.installStatus() == InstallStatus.INSTALLED) {
+							// Update installed.
+							Log.i(LOG_TAG, "InstallStateUpdatedListener: InstallStatus.INSTALLED");
+							if (appUpdateManager != null) {
+								// Unregister listener.
+								appUpdateManager.unregisterListener(installStateUpdatedListener);
+							}
+						} else if (state.installStatus() == InstallStatus.DOWNLOADING) {
+							// Now downloading...
+							Log.i(LOG_TAG, "InstallStateUpdatedListener: InstallStatus.DOWNLOADING");
+							PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADING");
+							result.setKeepCallback(true);
+							callbackContext.sendPluginResult(result);
+						} else {
+							// Other status.
+							Log.i(LOG_TAG, "InstallStateUpdatedListener: state: " + state.installStatus());
+						}
 					}
 				};
 
 				// Before starting an update, register a listener for updates.
-				appUpdateManager.registerListener(listener);
+				appUpdateManager.registerListener(installStateUpdatedListener);
 
 				// Start an update.
 				appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-					Log.i(InAppUpdate.class.getSimpleName(), "Updated success listener called");
+					Log.i(LOG_TAG, "Updated success listener called");
 
 					if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
 						// If the update is downloaded but not installed, notify the user to complete the update.
-						Log.i(InAppUpdate.class.getSimpleName(), "appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED ...");
+						Log.i(LOG_TAG, "InstallStatus.DOWNLOADED");
 
 						// When status updates are no longer needed, unregister the listener.
-						appUpdateManager.unregisterListener(listener);
+						appUpdateManager.unregisterListener(installStateUpdatedListener);
 
 						popupSnackbarForCompleteUpdate();
-						callbackContext.success("DOWNLOADED");
+						PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADED");
+						callbackContext.sendPluginResult(result);
 
 					} else {
 						// Check for update availability.
-						Log.i(InAppUpdate.class.getSimpleName(), "appUpdateInfo.installStatus() != InstallStatus.DOWNLOADED");
-
 						switch (appUpdateInfo.updateAvailability()) {
 							case UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS:
 								// An update has been triggered by the developer and is in progress.
-								Log.i(InAppUpdate.class.getSimpleName(), "DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS");
+								Log.i(LOG_TAG, "DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS");
 								callbackContext.success("DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS");
 								break;
 
 							case UpdateAvailability.UPDATE_AVAILABLE:
 								// Update is available.
-								Log.i(InAppUpdate.class.getSimpleName(), "UPDATE_AVAILABLE");
+								Log.i(LOG_TAG, "UPDATE_AVAILABLE");
 								if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
 									// Request the update.
 									startUpdate(AppUpdateType.FLEXIBLE, appUpdateInfo);
+
 								} else {
 									// Update type not allowed.
-									Log.e(InAppUpdate.class.getSimpleName(), "Flexible update type not allowed");
+									Log.e(LOG_TAG, "Flexible update type not allowed");
 									callbackContext.error("UPDATE_TYPE_NOT_ALLOWED");
 								}
 								break;
 
 							case UpdateAvailability.UPDATE_NOT_AVAILABLE:
 								// Update not available.
-								Log.i(InAppUpdate.class.getSimpleName(), "UPDATE_NOT_AVAILABLE");
+								Log.i(LOG_TAG, "UPDATE_NOT_AVAILABLE");
 								callbackContext.success("UPDATE_NOT_AVAILABLE");
 								break;
 
 							default:
 								// Unknown update status.
-								Log.i(InAppUpdate.class.getSimpleName(), "UNKNOWN");
+								Log.i(LOG_TAG, "UNKNOWN");
 								callbackContext.success("UNKNOWN");
 						}
 					}
@@ -290,7 +321,7 @@ public class InAppUpdate extends CordovaPlugin {
 				}).addOnFailureListener(e -> {
 					// Returns "com.google.android.play.core.internal.al: Failed to bind to the service." whenever the Play Store is not available.
 					e.printStackTrace();
-					Log.e(InAppUpdate.class.getSimpleName(), e.toString());
+					Log.e(LOG_TAG, e.toString());
 					callbackContext.error(e.toString());
 
 				});
@@ -299,7 +330,7 @@ public class InAppUpdate extends CordovaPlugin {
 		});
 	}
 
-	private void updateImmediate(CallbackContext callbackContext) {
+	private void updateImmediate() {
 
 		currentUpdateType = AppUpdateType.IMMEDIATE;
 		cordova.setActivityResultCallback(this);
@@ -314,7 +345,7 @@ public class InAppUpdate extends CordovaPlugin {
 				Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
 
 				appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-					Log.i(InAppUpdate.class.getSimpleName(), "Updated success listener called");
+					Log.i(LOG_TAG, "Updated success listener called");
 
 					if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
 						// If the update is downloaded but not installed, complete the update now.
@@ -325,40 +356,39 @@ public class InAppUpdate extends CordovaPlugin {
 						switch (appUpdateInfo.updateAvailability()) {
 							case UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS:
 								// An update has been triggered by the developer and is in progress.
-								Log.i(InAppUpdate.class.getSimpleName(), "DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS");
+								Log.i(LOG_TAG, "DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS");
 								callbackContext.success("DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS");
 								break;
 
 							case UpdateAvailability.UPDATE_AVAILABLE:
 								// Update is available.
-								Log.i(InAppUpdate.class.getSimpleName(), "UPDATE_AVAILABLE");
+								Log.i(LOG_TAG, "UPDATE_AVAILABLE");
 								if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
 									// Request the update.
 									startUpdate(AppUpdateType.IMMEDIATE, appUpdateInfo);
 								} else {
 									// Update type not allowed.
-									Log.e(InAppUpdate.class.getSimpleName(), "Flexible update type not allowed");
+									Log.e(LOG_TAG, "Flexible update type not allowed");
 									callbackContext.error("Flexible update type not allowed");
 								}
 								break;
 
 							case UpdateAvailability.UPDATE_NOT_AVAILABLE:
 								// Update not available.
-								Log.i(InAppUpdate.class.getSimpleName(), "UPDATE_NOT_AVAILABLE");
+								Log.i(LOG_TAG, "UPDATE_NOT_AVAILABLE");
 								callbackContext.success("UPDATE_NOT_AVAILABLE");
 								break;
 
 							default:
 								// Unknown update status.
-								Log.i(InAppUpdate.class.getSimpleName(), "UNKNOWN");
+								Log.i(LOG_TAG, "UNKNOWN");
 								callbackContext.success("UNKNOWN");
 						}
 					}
 
 				}).addOnFailureListener(e -> {
 					// Returns "com.google.android.play.core.internal.al: Failed to bind to the service." whenever the Play Store is not available.
-					Log.e(InAppUpdate.class.getSimpleName(), e.toString());
-
+					Log.e(LOG_TAG, e.toString());
 					e.printStackTrace();
 					callbackContext.error(e.toString());
 
@@ -373,25 +403,37 @@ public class InAppUpdate extends CordovaPlugin {
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
 		PluginResult result;
-		Log.i(InAppUpdate.class.getSimpleName(), "onActivityResult");
+		Log.i(LOG_TAG, "onActivityResult");
 
-		if (requestCode == this.activityResultRequestCode) {
-			if (resultCode != RESULT_OK) {
-				if (callbackContext != null) {
-					switch (resultCode) {
-						case RESULT_CANCELED:
-							result = new PluginResult(PluginResult.Status.ERROR, "RESULT_CANCELED");
-							this.callbackContext.sendPluginResult(result);
-							break;
-						case RESULT_IN_APP_UPDATE_FAILED:
-							result = new PluginResult(PluginResult.Status.ERROR, "RESULT_IN_APP_UPDATE_FAILED");
-							this.callbackContext.sendPluginResult(result);
-							break;
-						default:
-							result = new PluginResult(PluginResult.Status.ERROR, "ACTIVITY_RESULT_UNKNOWN");
-							this.callbackContext.sendPluginResult(result);
-					}
-				}
+		if (requestCode == this.activityResultRequestCode && this.callbackContext != null) {
+			switch (resultCode) {
+				case RESULT_OK:
+					// User accepted the update.
+					Log.i(LOG_TAG, "RESULT_OK");
+					result = new PluginResult(PluginResult.Status.OK, "RESULT_OK");
+					result.setKeepCallback(true);
+					this.callbackContext.sendPluginResult(result);
+					break;
+
+				case RESULT_CANCELED:
+					// User cancelled the update.
+					Log.i(LOG_TAG, "RESULT_CANCELED");
+					result = new PluginResult(PluginResult.Status.OK, "RESULT_CANCELED");
+					this.callbackContext.sendPluginResult(result);
+					break;
+
+				case RESULT_IN_APP_UPDATE_FAILED:
+					// Update failured.
+					Log.e(LOG_TAG, "RESULT_IN_APP_UPDATE_FAILED");
+					result = new PluginResult(PluginResult.Status.ERROR, "RESULT_IN_APP_UPDATE_FAILED");
+					this.callbackContext.sendPluginResult(result);
+					break;
+
+				default:
+					// Unknown activity result.
+					Log.e(LOG_TAG, "ACTIVITY_RESULT_UNKNOWN");
+					result = new PluginResult(PluginResult.Status.ERROR, "ACTIVITY_RESULT_UNKNOWN=" + resultCode);
+					this.callbackContext.sendPluginResult(result);
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, intent);
@@ -401,15 +443,15 @@ public class InAppUpdate extends CordovaPlugin {
 	@Override
 	public void onResume(final boolean multitasking) {
 
-		//Log.i(InAppUpdate.class.getSimpleName(), String.format("onResume: currentUpdateType = %s", String.valueOf(currentUpdateType)));
+		//Log.i(LOG_TAG, String.format("onResume: currentUpdateType = %s", String.valueOf(currentUpdateType)));
 		appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
 			if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
 				// If the update is downloaded but not installed, notify the user to complete the update.
 				if (currentUpdateType == AppUpdateType.FLEXIBLE) {
-					Log.i(InAppUpdate.class.getSimpleName(), "onResume: popupSnackbarForCompleteUpdate");
+					Log.i(LOG_TAG, "onResume: popupSnackbarForCompleteUpdate");
 					popupSnackbarForCompleteUpdate();
 				} else {
-					Log.i(InAppUpdate.class.getSimpleName(), "onResume: startUpdate");
+					Log.i(LOG_TAG, "onResume: startUpdate");
 					try {
 						startUpdate(AppUpdateType.IMMEDIATE, appUpdateInfo);
 					} catch (Exception e) {
@@ -425,17 +467,24 @@ public class InAppUpdate extends CordovaPlugin {
 
 	public void startUpdate(final int updateType, final AppUpdateInfo appUpdateInfo) {
 
-		Log.i(InAppUpdate.class.getSimpleName(), "startUpdate");
+		PluginResult result;
+		Log.i(LOG_TAG, "startUpdate");
 
 		try {
 			appUpdateManager.startUpdateFlowForResult(appUpdateInfo, updateType, cordova.getActivity(), this.activityResultRequestCode);
-			PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADING");
+			if (updateType == AppUpdateType.FLEXIBLE) {
+				result = new PluginResult(PluginResult.Status.OK, "UPDATE_PROMPT");
+			} else {
+				result = new PluginResult(PluginResult.Status.OK, "DOWNLOADING");
+			}
 			result.setKeepCallback(true);
 			this.callbackContext.sendPluginResult(result);
+
 		} catch (Exception e) {
-			Log.e(InAppUpdate.class.getSimpleName(), e.getMessage());
-			PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
+			result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
 			this.callbackContext.sendPluginResult(result);
+
 		}
 
 	}
