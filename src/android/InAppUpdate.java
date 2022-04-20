@@ -52,7 +52,6 @@ public class InAppUpdate extends CordovaPlugin {
 
 	private String snackbarText = "An update has just been downloaded.";
 	private String snackbarButton = "RESTART";
-	private String snackbarDuration = "LENGTH_INDEFINITE";
 	private String snackbarButtonColor = "#76FF03";
 
 	public InAppUpdate() {
@@ -151,33 +150,23 @@ public class InAppUpdate extends CordovaPlugin {
 		Log.i(LOG_TAG, "popupSnackbarForCompleteUpdate");
 		this.PROMPTED = true;
 
-		try {
-			if (this.snackbar != null) {
-				this.snackbar.dismiss();
-			}
-			cordova.getActivity().runOnUiThread(new Runnable() {
-				public void run() {
+		cordova.getActivity().runOnUiThread(new Runnable() {
+			public void run() {
+				try {
 					snackbar = Snackbar.make(layout, snackbarText, Snackbar.LENGTH_INDEFINITE);
+					snackbar.setAction(snackbarButton, new View.OnClickListener() {
+						public void onClick(View view) {
+							appUpdateManager.completeUpdate();
+						}
+					});
 					snackbar.setActionTextColor(Color.parseColor(snackbarButtonColor));
-
-					if (snackbarDuration.equals("LENGTH_LONG")) {
-						snackbar.setDuration(Snackbar.LENGTH_LONG);
-					} else if (snackbarDuration.equals("LENGTH_SHORT")) {
-						snackbar.setDuration(Snackbar.LENGTH_LONG);
-					} else {
-						snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
-					}
-
-					snackbar.setAction(snackbarButton, view -> appUpdateManager.completeUpdate());
 					snackbar.show();
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.e(LOG_TAG, e.getMessage());
 				}
-			});
-
-		} catch (Exception e) {
-
-			Log.e(LOG_TAG, e.getMessage());
-
-		}
+			}
+		});
 
 	}
 
@@ -472,11 +461,7 @@ public class InAppUpdate extends CordovaPlugin {
 
 		try {
 			appUpdateManager.startUpdateFlowForResult(appUpdateInfo, updateType, cordova.getActivity(), this.activityResultRequestCode);
-			if (updateType == AppUpdateType.FLEXIBLE) {
-				result = new PluginResult(PluginResult.Status.OK, "UPDATE_PROMPT");
-			} else {
-				result = new PluginResult(PluginResult.Status.OK, "DOWNLOADING");
-			}
+			result = new PluginResult(PluginResult.Status.OK, "UPDATE_PROMPT");
 			result.setKeepCallback(true);
 			this.callbackContext.sendPluginResult(result);
 
