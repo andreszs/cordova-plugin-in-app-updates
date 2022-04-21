@@ -421,7 +421,7 @@ public class InAppUpdate extends CordovaPlugin {
 				default:
 					// Unknown activity result.
 					Log.e(LOG_TAG, "ACTIVITY_RESULT_UNKNOWN");
-					result = new PluginResult(PluginResult.Status.ERROR, "ACTIVITY_RESULT_UNKNOWN=" + resultCode);
+					result = new PluginResult(PluginResult.Status.ERROR, "ACTIVITY_RESULT_UNKNOWN");
 					this.callbackContext.sendPluginResult(result);
 			}
 		}
