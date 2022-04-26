@@ -26,58 +26,22 @@ Add plugin to your Cordova app:
     
 ## Methods
 
-### Check for update availability
-
-```javascript
-cordova.plugins.InAppUpdate.getUpdateAvailability(successCallback, failureCallback);
-```
-
-Returns one of the [updateAvailability](https://developer.android.com/reference/com/google/android/play/core/install/model/UpdateAvailability.html) codes as string:
-- DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
-- UNKNOWN
-- UPDATE_AVAILABLE
-- UPDATE_NOT_AVAILABLE
-
-### Start flexible update
-
-```javascript
-cordova.plugins.InAppUpdate.updateFlexible(successCallback, failureCallback);
-```
-Checks for update and show full-screen dialog to download and install it now or when WiFi is available.
-
-### Start immediate update
-
-```javascript
-cordova.plugins.InAppUpdate.updateImmediate(successCallback, failureCallback);
-```
-Checks for an update and shows the dialog to download it now or when WiFi is available.
-
-Upon complete download, a snackbar message with a button to install it will be shown.
-
-
-Once downloaded, the ``getUpdateAvailability`` method will return ``DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS``.
-If the user does not click the INSTALL button in the action bar, you can recall this ``updateImmediate``  method and the snackbar will be immediately shown to install the downloaded update.
-
-### Set snackbar options for flexible update downloaded
-
-```javascript
-cordova.plugins.InAppUpdate.setSnackbarOptions(successCallback, failureCallback, snackbarText, snackbarButton, snackbarButtonColor);
-```
-
-Set snackbar status message, button caption and button color for completed Flexible updates.
-
-If not set, these defaults will be applied:
-
-- snackbarText = ``"An update has just been downloaded.";``
-- snackbarButton = ``"RESTART";``
-- snackbarText = ``"#76FF03";``
-
-You can invoke this method at any moment and your Flexible update completion will show the snackbar with your settings.
-## Usage/Examples
-
 ### getUpdateAvailability
 
-```javascript
+Invokes the AppUpdateManager and return one of the [updateAvailability](https://developer.android.com/reference/com/google/android/play/core/install/model/UpdateAvailability.html) codes as string.
+
+#### Return values
+
+- **UPDATE_AVAILABLE**
+- **UPDATE_NOT_AVAILABLE**
+- **DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS**
+- **UNKNOWN**
+
+When this method returns **UPDATE_AVAILABLE**, your app is ready to use the following methods to prompt the user for update.
+
+#### Example
+
+ ```javascript
 var onSuccess = function (strSuccess) {
     console.log(strSuccess);
 };
@@ -89,6 +53,24 @@ cordova.plugins.InAppUpdate.getUpdateAvailability(onSuccess, onFailure);
 
 ### updateFlexible
 
+Starts a [flexible update](http://https://developer.android.com/guide/playcore/in-app-updates/kotlin-java#flexible "flexible update") process and prompts the user with a dialog to download the new version now or when Wi-Fi is available.
+
+:warning: The **successCallback** from this method can be triggered more than once according to its status.
+
+#### Return values
+
+- **UPDATE_NOT_AVAILABLE**: No updates available in Play Store.
+- **DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS**: Either flexible or immadiate update is in progress.
+- **UPDATE_PROMPT**: The user has been presented with the Play Store dialog to download or ignore the flexible update.
+- **RESULT_OK**: User accepted to download flexible update.
+- **RESULT_CANCELED**: User declined the flexible update dialog or update was aborted while in progress.
+- **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the flexible update dialog response.
+- **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the update dialog.
+- **DOWNLOADING**: An update is currently being downloaded in the background.
+- **DOWNLOADED**: The update was downloaded and the snackbar with RESTART button has been shown.
+
+#### Example
+
 ```javascript
 var onSuccess = function (strSuccess) {
     console.log(strSuccess);
@@ -99,7 +81,26 @@ var onFailure = function (strError) {
 cordova.plugins.InAppUpdate.updateFlexible(onSuccess, onFailure);
 ```
 
+:warning: Make sure to call getUpdateAvailability as often as needed to ensure there are no **flexible** updates downloaded pending install, as they will consume storage space until installed.
+
 ### updateImmediate
+
+Starts an immediate update process and prompts the user with a fullscreen dialog to download now or when Wi-Fi is available. The update is downloaded and installed in the foreground, preventing the user from interacting with your app until the installation succeeds and the app is automatically restarted.
+
+:warning: The **successCallback** from this method can be triggered more than once according to its status.
+
+#### Return values
+
+- **UPDATE_NOT_AVAILABLE**: No updates available in Play Store.
+- **DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS**: Either flexible or immadiate update is in progress.
+- **RESULT_OK**: User accepted to download immediate update.
+- **RESULT_CANCELED**: User declined the immediate update dialog.
+- **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the flexible update dialog response.
+- **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the update dialog.
+- **DOWNLOADING**: An update is currently being downloaded in the background.
+- **DOWNLOADED**: The update was downloaded and will be installed immediately.
+
+#### Example
 
 ```javascript
 var onSuccess = function (strSuccess) {
@@ -113,7 +114,11 @@ cordova.plugins.InAppUpdate.updateImmediate(onSuccess, onFailure);
 
 ### setSnackbarOptions
 
-Notice this method is not mandatory, default (english) strings will be shown if not called.
+Sets the label and the button text for the snackbar shown after downloading a flexible update. You are free to call this method at any time. You can also call it again to show different snackbar messages after the snackbar was shown.
+
+If not called, default messages in English will be shown.
+
+#### Example
 
 ```javascript
 var onSuccess = function (strSuccess) {
@@ -128,15 +133,25 @@ var snackbarButtonColor = "#76FF03";
 cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarText, snackbarButton, snackbarButtonColor);
 ```
 
+#### Default messages when not called
 
-## Plugin Demo App
+- **snackbarText** = "An update has just been downloaded."
+- **snackbarButton** = "RESTART"
+- **snackbarText** = "#76FF03"
 
-Demo app to be released to Open Testing in the Play Store soon, please check back later.
+#### Return values
 
+- **onSuccess** = "SUCCESS"
+- **onFail** = *Internal error description.*
 
-## Screenshots
+## Plugin demo app by Andrés Zsögön
 
-Screenshots coming soon.
+Get the [In-App Update Plugin Demo app](http://https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+## Demo app screenshots
 
+[![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)") [![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)")
+
+## Reporting issues
+
+Please report any issue with this plugin in GitHub by providing detailed context and sample code.
