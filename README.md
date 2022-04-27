@@ -85,7 +85,7 @@ cordova.plugins.InAppUpdate.updateFlexible(onSuccess, onFailure);
 
 ## updateImmediate
 
-Starts an immediate update process and prompts the user with a fullscreen dialog to download now or when Wi-Fi is available. The update is downloaded and installed in the foreground, preventing the user from interacting with your app until the installation succeeds and the app is automatically restarted.
+Starts an [immediate update](https://developer.android.com/guide/playcore/in-app-updates/kotlin-java#immediate "immediate update") process and prompts the user with a fullscreen dialog to download now or when Wi-Fi is available. The update is downloaded and installed in the foreground, preventing the user from interacting with your app until the installation succeeds and the app is automatically restarted.
 
 :warning: The **successCallback** from this method can be triggered repeatedly according to its status.
 
