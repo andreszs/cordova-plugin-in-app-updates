@@ -53,9 +53,9 @@ cordova.plugins.InAppUpdate.getUpdateAvailability(onSuccess, onFailure);
 
 ## updateFlexible
 
-Starts a [flexible update](http://https://developer.android.com/guide/playcore/in-app-updates/kotlin-java#flexible "flexible update") process and prompts the user with a dialog to download the new version now or when Wi-Fi is available.
+Starts a [flexible update](https://developer.android.com/guide/playcore/in-app-updates/kotlin-java#flexible "flexible update") process and prompts the user with a dialog to download the new version now or when Wi-Fi is available.
 
-:warning: The **successCallback** from this method can be triggered more than once according to its status.
+:warning: The **successCallback** from this method can be triggered repeatedly according to its status.
 
 ### Return values
 
@@ -64,8 +64,8 @@ Starts a [flexible update](http://https://developer.android.com/guide/playcore/i
 - **UPDATE_PROMPT**: The user has been presented with the Play Store dialog to download or ignore the flexible update.
 - **RESULT_OK**: User accepted to download flexible update.
 - **RESULT_CANCELED**: User declined the flexible update dialog or update was aborted while in progress.
-- **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the flexible update dialog response.
-- **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the update dialog.
+- **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the update dialog response.
+- **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the dialog.
 - **DOWNLOADING**: An update is currently being downloaded in the background.
 - **DOWNLOADED**: The update was downloaded and the snackbar with RESTART button has been shown.
 
@@ -81,13 +81,13 @@ var onFailure = function (strError) {
 cordova.plugins.InAppUpdate.updateFlexible(onSuccess, onFailure);
 ```
 
-:warning: Make sure to call getUpdateAvailability as often as needed to ensure there are no **flexible** updates downloaded pending install, as they will consume storage space until installed.
+:warning: Make sure to call **getUpdateAvailability** as often as needed to ensure there are no **flexible** updates downloaded pending install, as they will consume storage space until installed.
 
 ## updateImmediate
 
 Starts an immediate update process and prompts the user with a fullscreen dialog to download now or when Wi-Fi is available. The update is downloaded and installed in the foreground, preventing the user from interacting with your app until the installation succeeds and the app is automatically restarted.
 
-:warning: The **successCallback** from this method can be triggered more than once according to its status.
+:warning: The **successCallback** from this method can be triggered repeatedly according to its status.
 
 ### Return values
 
@@ -95,8 +95,8 @@ Starts an immediate update process and prompts the user with a fullscreen dialog
 - **DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS**: Either flexible or immadiate update is in progress.
 - **RESULT_OK**: User accepted to download immediate update.
 - **RESULT_CANCELED**: User declined the immediate update dialog.
-- **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the flexible update dialog response.
-- **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the update dialog.
+- **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the update dialog response.
+- **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the dialog.
 - **DOWNLOADING**: An update is currently being downloaded in the background.
 - **DOWNLOADED**: The update was downloaded and will be installed immediately.
 
@@ -146,7 +146,7 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 
 # Plugin demo app by Andrés Zsögön
 
-Get the [In-App Update Plugin Demo app](http://https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
+Get the [In-App Update Plugin Demo app](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
 
 # Demo app screenshots
 
