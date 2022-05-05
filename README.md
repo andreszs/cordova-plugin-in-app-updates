@@ -9,21 +9,29 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 # Features
 
+- AndroidX ready
 - Checks for updates
-- Flexible updates
-- Immediate updates
+- Install flexible updates
+- Install immediate updates
 - Customize snackbar message and button for Flexible updates
 - Customize snackbar button color for Flexible updates
 
-
 # Installation
 
-Add plugin to your Cordova app:
+## Version Requirements
+
+| Plugin version | Cordova CLI | Cordova Android | AndroidX support |
+| --- | --- | --- | --- |
+| 1.0.3| 9.0.0 | 8.0.0 | No |
+| 2.0.0 | 10.0.0 | 9.0.0 | Yes |
+
+## Install latest version via CLI
 
 ```bash
   cordova plugin add https://github.com/andreszs/cordova-plugin-in-app-update
 ```
-    
+
+
 # Methods
 
 ## getUpdateAvailability
@@ -150,7 +158,7 @@ Get the [In-App Update Plugin Demo app](https://www.andreszsogon.com/cordova-in-
 
 # Demo app screenshots
 
-[![Play Store](https://www.andreszsogon.com/wp-content/uploads/inappupdate_store-165x300.png)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/) [![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)") [![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)")
+[![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)") [![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)")
 
 # Reporting issues
 

@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-in-app-update" version="1.0.2" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-in-app-update" version="1.0.3" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>InAppUpdate</name>
 	<description>In-App updates from Play Store for your Apache Cordova app.</description>
 	<license>MIT</license>
 	<keywords>android,in-app,update</keywords>
 
 	<engines>
-		<engine name="cordova" version=">=7.1.0" />
-		<engine name="cordova-android" version=">=6.3.0" />
+		<engine name="cordova" version=">=9.0.0" />
+		<engine name="cordova-android" version=">=8.0.0" />
 	</engines>
 
 	<js-module name="InAppUpdate" src="www/InAppUpdate.js">
@@ -25,9 +25,9 @@
 			</feature>
 		</config-file>
 
-<!--		<edit-config file="AndroidManifest.xml" target="/manifest/application/activity[@android:name='MainActivity']" mode="merge">
+		<edit-config file="AndroidManifest.xml" target="/manifest/application/activity[@android:name='MainActivity']" mode="merge">
 			<activity android:name="MainActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
-		</edit-config>-->
+		</edit-config>
 
 		<source-file src="src/android/InAppUpdate.java" target-dir="src/com/andreszs/inappupdate" />
 	</platform>
