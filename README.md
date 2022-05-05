@@ -1,7 +1,5 @@
 
-| License | Platform | Contribute |
-| --- | --- | --- |
-| ![License](https://img.shields.io/badge/license-MIT-orange.svg) | ![Platform](https://img.shields.io/badge/platform-android-green.svg) | [![Donate](https://img.shields.io/badge/donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G33QACCVKYD7U) |
+ ![License](https://img.shields.io/badge/license-MIT-orange.svg) ![Platform](https://img.shields.io/badge/platform-android-green.svg) [![Donate](https://img.shields.io/badge/donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G33QACCVKYD7U)
 
 # cordova-plugin-in-app-update
 
@@ -30,7 +28,6 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 ```bash
   cordova plugin add https://github.com/andreszs/cordova-plugin-in-app-update
 ```
-
 
 # Methods
 
@@ -152,13 +149,18 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 - **onSuccess** = "SUCCESS"
 - **onFail** = *Internal error description.*
 
-# Plugin demo app by Andrés Zsögön
+# Plugin demo app
 
 Get the [In-App Update Plugin Demo app](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
 
-# Demo app screenshots
+### Demo app versions
 
-[![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)") [![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Localized snackbar message](https://www.andreszsogon.com/wp-content/uploads/in_app_update_4-169x300.jpg)")
+- Version >= 1.3.X: includes plugin 2.0.0
+- Version <= 1.2.x: includes plugin 1.0.2
+
+### Demo screenshots
+
+[![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)")
 
 # Reporting issues
 
