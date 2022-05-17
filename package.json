@@ -1,6 +1,6 @@
 {
 	"name": "cordova-plugin-in-app-updates",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "In-App updates from Play Store for your Apache Cordova app.",
 	"cordova": {
 		"id": "cordova-plugin-in-app-updates",
@@ -10,7 +10,7 @@
 	},
 	"engines": {
 		"cordovaDependencies": {
-			"1.0.5": {
+			"1.0.6": {
 				"cordova": ">=9.0.0",
 				"cordova-android": ">=8.0.0"
 			},
