@@ -35,9 +35,6 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.google.android.play.core.install.model.ActivityResult.RESULT_IN_APP_UPDATE_FAILED;
 
-/**
- * @author https://github.com/andreszs/cordova-plugin-in-app-update
- */
 public class InAppUpdate extends CordovaPlugin {
 
 	private static String LOG_TAG;
