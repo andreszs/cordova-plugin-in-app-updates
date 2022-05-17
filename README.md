@@ -1,7 +1,7 @@
 
  ![License](https://img.shields.io/badge/license-MIT-orange.svg) ![Platform](https://img.shields.io/badge/platform-android-green.svg) [![Donate](https://img.shields.io/badge/donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G33QACCVKYD7U)
 
-# cordova-plugin-in-app-update
+# cordova-plugin-in-app-updates
 
 Cordova Android plugin for checking for updates and auto updating app with Google Play Store In-App updates API.
 
@@ -25,7 +25,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 | Plugin version | Cordova CLI | Cordova Android | AndroidX support |
 | --- | --- | --- | --- |
-| 1.0.5 | 9.0.0 | 8.0.0 | No |
+| 1.0.6 | 9.0.0 | 8.0.0 | No |
 | 2.0.5 | 10.0.0 | 9.0.0 | Yes |
 
 ## Install latest version via CLI
@@ -37,7 +37,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 ## Install version 1.x
 
 ```bash
-  cordova plugin add cordova-plugin-in-app-updates@1.0.5
+  cordova plugin add cordova-plugin-in-app-updates@1.0.6
 ```
 
 # Methods
