@@ -12,7 +12,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 # Features
 
-- AndroidX ready
+- AndroidX ready (plugin version 2.0.x)
 - Checks for updates
 - Install flexible updates
 - Install immediate updates
@@ -25,13 +25,13 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 | Plugin version | Cordova CLI | Cordova Android | AndroidX support |
 | --- | --- | --- | --- |
-| 1.0.3| 9.0.0 | 8.0.0 | No |
-| 2.0.0 | 10.0.0 | 9.0.0 | Yes |
+| 1.0.5| 9.0.0 | 8.0.0 | No |
+| 2.0.5 | 10.0.0 | 9.0.0 | Yes |
 
 ## Install latest version via CLI
 
 ```bash
-  cordova plugin add https://github.com/andreszs/cordova-plugin-in-app-update
+  cordova plugin add cordova-plugin-in-app-updates
 ```
 
 # Methods

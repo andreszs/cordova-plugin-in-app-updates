@@ -1,21 +1,20 @@
 {
-	"name": "cordova-plugin-in-app-update",
-	"version": "2.1.0",
+	"name": "cordova-plugin-in-app-updates",
+	"version": "1.0.5",
 	"description": "In-App updates from Play Store for your Apache Cordova app.",
 	"cordova": {
-		"id": "cordova-plugin-in-app-update",
+		"id": "cordova-plugin-in-app-updates",
 		"platforms": [
-			"android",
-			"browser"
+			"android"
 		]
 	},
 	"engines": {
 		"cordovaDependencies": {
-			"1.0.0": {
+			"1.0.5": {
 				"cordova": ">=9.0.0",
 				"cordova-android": ">=8.0.0"
 			},
-			"2.0.0": {
+			"2.0.5": {
 				"cordova": ">=10.0.0",
 				"cordova-android": ">=9.0.0"
 			}
@@ -40,10 +39,10 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/andreszs/cordova-plugin-in-app-update.git"
+		"url": "git+https://github.com/andreszs/cordova-plugin-in-app-updates.git"
 	},
-	"homepage": "https://github.com/andreszs/cordova-plugin-in-app-update#readme",
+	"homepage": "https://github.com/andreszs/cordova-plugin-in-app-updates#readme",
 	"bugs": {
-		"url": "https://github.com/andreszs/cordova-plugin-in-app-update/issues"
+		"url": "https://github.com/andreszs/cordova-plugin-in-app-updates/issues"
 	}
 }

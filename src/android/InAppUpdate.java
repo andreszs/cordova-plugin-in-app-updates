@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
-import com.google.android.material.snackbar.Snackbar;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;

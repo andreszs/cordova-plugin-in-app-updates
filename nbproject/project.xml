@@ -3,7 +3,7 @@
     <type>org.netbeans.modules.web.clientproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/clientside-project/1">
-            <name>cordova-plugin-in-app-update</name>
+            <name>cordova-plugin-in-app-updates</name>
         </data>
     </configuration>
 </project>
