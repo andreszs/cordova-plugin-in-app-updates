@@ -16,5 +16,4 @@ var InAppUpdate = {
 };
 
 module.exports = InAppUpdate;
-
 require("cordova/exec/proxy").add("InAppUpdate", module.exports);
