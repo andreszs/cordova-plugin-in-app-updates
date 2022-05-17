@@ -34,6 +34,12 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
   cordova plugin add cordova-plugin-in-app-updates
 ```
 
+## Install version 1.x
+
+```bash
+  cordova plugin add cordova-plugin-in-app-updates@1.0.5
+```
+
 # Methods
 
 ## getUpdateAvailability
