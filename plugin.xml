@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-in-app-update" version="2.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova-plugin-in-app-update" version="2.1.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 	<name>InAppUpdate</name>
 	<description>In-App updates from Play Store for your Apache Cordova app.</description>
 	<license>MIT</license>
@@ -39,5 +39,16 @@
 		</edit-config>
 
 		<source-file src="src/android/InAppUpdate.java" target-dir="src/com/andreszs/inappupdate" />
+	</platform>
+
+	<platform name="browser">
+		<config-file target="config.xml" parent="/*">
+			<feature name="InAppUpdate">
+				<param name="browser-package" value="InAppUpdate" />
+			</feature>
+		</config-file>
+		<js-module src="src/browser/InAppUpdateProxy.js" name="InAppUpdateProxy">
+			<runs />
+		</js-module>
 	</platform>
 </plugin>
