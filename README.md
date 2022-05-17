@@ -5,7 +5,7 @@
 
 Cordova Android plugin for checking for updates and auto updating app with Google Play Store In-App updates API.
 
-# Supported Platforms
+# Platforms
 
 - Android
 - Browser
