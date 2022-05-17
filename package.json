@@ -11,11 +11,11 @@
 	},
 	"engines": {
 		"cordovaDependencies": {
-			"1.0.0": {
+			"1.0.5": {
 				"cordova": ">=9.0.0",
 				"cordova-android": ">=8.0.0"
 			},
-			"2.0.0": {
+			"2.0.5": {
 				"cordova": ">=10.0.0",
 				"cordova-android": ">=9.0.0"
 			}

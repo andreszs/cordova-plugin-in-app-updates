@@ -12,7 +12,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 # Features
 
-- AndroidX ready
+- AndroidX ready (plugin version 2.0.x)
 - Checks for updates
 - Install flexible updates
 - Install immediate updates
@@ -25,13 +25,18 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 | Plugin version | Cordova CLI | Cordova Android | AndroidX support |
 | --- | --- | --- | --- |
-| 1.0.3| 9.0.0 | 8.0.0 | No |
-| 2.0.0 | 10.0.0 | 9.0.0 | Yes |
+| 1.0.5 | 9.0.0 | 8.0.0 | No |
+| 2.0.5 | 10.0.0 | 9.0.0 | Yes |
 
 ## Install latest version via CLI
 
 ```bash
-  cordova plugin add https://github.com/andreszs/cordova-plugin-in-app-update
+  cordova plugin add cordova-plugin-in-app-updates
+```
+## Install version 1.x
+
+```bash
+  cordova plugin add cordova-plugin-in-app-updates@1.0.5
 ```
 
 # Methods
@@ -157,15 +162,6 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 # Plugin demo app
 
 Get the [In-App Update Plugin Demo app](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
-
-### Demo app versions
-
-- Version >= 1.3.X: includes plugin 2.0.0
-- Version <= 1.2.x: includes plugin 1.0.2
-
-### Demo screenshots
-
-[![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)")
 
 # Reporting issues
 
