@@ -53,11 +53,9 @@ Invokes the AppUpdateManager and return one of the [updateAvailability](https://
 - **DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS**
 - **UNKNOWN**
 
+:information_source: Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
+
 When this method returns **UPDATE_AVAILABLE**, your app is ready to use the following methods to prompt the user for update.
-
-### Remarks
-
-- Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
 
 ### Example
 
@@ -89,9 +87,7 @@ Starts a [flexible update](https://developer.android.com/guide/playcore/in-app-u
 - **DOWNLOADING**: An update is currently being downloaded in the background.
 - **DOWNLOADED**: The update was downloaded and the snackbar with RESTART button has been shown.
 
-### Remarks
-
-- Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
+:information_source: Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
 
 ### Example
 
@@ -124,9 +120,7 @@ Starts an [immediate update](https://developer.android.com/guide/playcore/in-app
 - **DOWNLOADING**: An update is currently being downloaded in the foreground.
 - **DOWNLOADED**: The update was downloaded and will be installed immediately.
 
-### Remarks
-
-- Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
+:information_source: Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
 
 ### Example
 
@@ -146,9 +140,7 @@ Sets the label and the button text for the snackbar shown after downloading a fl
 
 If not called, default messages in English will be shown.
 
-### Remarks
-
-- Browser platform does nothing and always returns **SUCCESS**
+:information_source: Browser platform does nothing and always returns **SUCCESS**
 
 ### Example
 
