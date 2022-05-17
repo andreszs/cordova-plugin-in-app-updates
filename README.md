@@ -25,7 +25,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 | Plugin version | Cordova CLI | Cordova Android | AndroidX support |
 | --- | --- | --- | --- |
-| 1.0.5| 9.0.0 | 8.0.0 | No |
+| 1.0.5 | 9.0.0 | 8.0.0 | No |
 | 2.0.5 | 10.0.0 | 9.0.0 | Yes |
 
 ## Install latest version via CLI
