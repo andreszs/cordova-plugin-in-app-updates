@@ -33,6 +33,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 ```bash
   cordova plugin add cordova-plugin-in-app-updates
 ```
+
 ## Install version 1.x
 
 ```bash
