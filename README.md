@@ -158,15 +158,6 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 
 Get the [In-App Update Plugin Demo app](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
 
-### Demo app versions
-
-- Version >= 1.3.X: includes plugin 2.0.0
-- Version <= 1.2.x: includes plugin 1.0.2
-
-### Demo screenshots
-
-[![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Update available](https://www.andreszsogon.com/wp-content/uploads/in_app_update_1-169x300.jpg)") [![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start immediate update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_6-169x300.jpg)") [![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Start flexible update](https://www.andreszsogon.com/wp-content/uploads/in_app_update_5-169x300.jpg)") [![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "![Flexible update downloaded](https://www.andreszsogon.com/wp-content/uploads/in_app_update_3-169x300.jpg)")
-
 # Reporting issues
 
 Please report any issue with this plugin in GitHub by providing detailed context and sample code.
