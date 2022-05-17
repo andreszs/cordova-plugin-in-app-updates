@@ -5,6 +5,11 @@
 
 Cordova Android plugin for checking for updates and auto updating app with Google Play Store In-App updates API.
 
+# Supported Platforms
+
+- Android
+- Browser
+
 # Features
 
 - AndroidX ready
@@ -102,7 +107,7 @@ Starts an [immediate update](https://developer.android.com/guide/playcore/in-app
 - **RESULT_CANCELED**: User declined the immediate update dialog.
 - **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the update dialog response.
 - **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the dialog.
-- **DOWNLOADING**: An update is currently being downloaded in the background.
+- **DOWNLOADING**: An update is currently being downloaded in the foreground.
 - **DOWNLOADED**: The update was downloaded and will be installed immediately.
 
 ### Example
