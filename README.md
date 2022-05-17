@@ -28,7 +28,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 | 1.0.6 | 9.0.0 | 8.0.0 | No |
 | 2.0.5 | 10.0.0 | 9.0.0 | Yes |
 
-## Install latest version via CLI
+## Install latest version
 
 ```bash
   cordova plugin add cordova-plugin-in-app-updates
