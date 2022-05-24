@@ -172,6 +172,8 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 
 Get the [In-App Update Plugin Demo app](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/ "In-App Update Plugin Demo app") to test the plugin in all possible scenarios. This app is available in the Store, please follow the linked  instructions to test the update flow.
 
+<img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_1.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_2.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_3.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_4.jpg?raw=true" width="200" />
+
 # Reporting issues
 
 Please report any issue with this plugin in GitHub by providing detailed context and sample code.
