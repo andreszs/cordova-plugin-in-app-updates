@@ -1,5 +1,4 @@
-
- ![License](https://img.shields.io/badge/license-MIT-orange.svg) ![Platform](https://img.shields.io/badge/platform-android-green.svg) [![Donate](https://img.shields.io/badge/donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G33QACCVKYD7U)
+![npm](https://img.shields.io/npm/dt/cordova-plugin-in-app-updates) ![npm](https://img.shields.io/npm/v/cordova-plugin-in-app-updates) ![GitHub package.json version](https://img.shields.io/github/package-json/v/andreszs/cordova-plugin-in-app-updates?color=FF6D00&label=master&logo=github) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/andreszs/cordova-plugin-in-app-updates) ![GitHub top language](https://img.shields.io/github/languages/top/andreszs/cordova-plugin-in-app-updates) ![GitHub](https://img.shields.io/github/license/andreszs/cordova-plugin-in-app-updates) ![GitHub last commit](https://img.shields.io/github/last-commit/andreszs/cordova-plugin-in-app-updates)
 
 # cordova-plugin-in-app-updates
 
