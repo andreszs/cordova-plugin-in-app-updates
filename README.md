@@ -170,7 +170,7 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 # Plugin demo app
 
 - [Compiled APK and reference](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/) including testing procedure instructions
-- [Latest app demo version in Play Store](https://play.google.com/store/apps/details?id=com.andreszs.inappupdate.demo)
+- [Latest demo app version in Play Store](https://play.google.com/store/apps/details?id=com.andreszs.inappupdate.demo)
 - [Source code for www folder](https://github.com/andreszs/cordova-plugin-demos)
 
 <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_1.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_2.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_3.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_4.jpg?raw=true" width="200" />
