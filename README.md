@@ -7,12 +7,12 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 # Platforms
 
 - Android
-- Browser
+- Browser (filler platform)
 
 # Features
 
-- AndroidX ready (plugin version 2.0.x)
-- Checks for updates
+- AndroidX ready (plugin version 2.x.x)
+- Check for updates
 - Install flexible updates
 - Install immediate updates
 - Customize snackbar message and button for Flexible updates
