@@ -45,6 +45,10 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 Invokes the AppUpdateManager and return one of the [updateAvailability](https://developer.android.com/reference/com/google/android/play/core/install/model/UpdateAvailability.html) codes as string.
 
+```javascript
+cordova.plugins.InAppUpdate.getUpdateAvailability(successCallback, errorCallback)
+```
+
 ### Return values
 
 - **UPDATE_AVAILABLE**
@@ -71,6 +75,10 @@ cordova.plugins.InAppUpdate.getUpdateAvailability(onSuccess, onFailure);
 ## updateFlexible
 
 Starts a [flexible update](https://developer.android.com/guide/playcore/in-app-updates/kotlin-java#flexible "flexible update") process and prompts the user with a dialog to download the new version now or when Wi-Fi is available.
+
+```javascript
+cordova.plugins.InAppUpdate.updateFlexible(successCallback, errorCallback)
+```
 
 :warning: The **successCallback** from this method can be triggered repeatedly according to its status.
 
@@ -106,6 +114,10 @@ cordova.plugins.InAppUpdate.updateFlexible(onSuccess, onFailure);
 
 Starts an [immediate update](https://developer.android.com/guide/playcore/in-app-updates/kotlin-java#immediate "immediate update") process and prompts the user with a fullscreen dialog to download now or when Wi-Fi is available. The update is downloaded and installed in the foreground, preventing the user from interacting with your app until the installation succeeds and the app is automatically restarted.
 
+```javascript
+cordova.plugins.InAppUpdate.updateImmediate(successCallback, errorCallback)
+```
+
 :warning: The **successCallback** from this method can be triggered repeatedly according to its status.
 
 ### Return values
@@ -137,7 +149,9 @@ cordova.plugins.InAppUpdate.updateImmediate(onSuccess, onFailure);
 
 Sets the label and the button text for the snackbar shown after downloading a flexible update. You are free to call this method at any time. You can also call it again to show different snackbar messages after the snackbar was shown.
 
-If not called, default messages in English will be shown.
+```javascript
+cordova.plugins.InAppUpdate.setSnackbarOptions(successCallback, errorCallback,  snackbarText, snackbarButton, snackbarButtonColor)
+```
 
 :information_source: Browser platform does nothing and always returns **SUCCESS**
 
@@ -156,7 +170,9 @@ var snackbarButtonColor = "#76FF03";
 cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarText, snackbarButton, snackbarButtonColor);
 ```
 
-### Default messages when not called
+### Snackbar default values
+
+ If this method is not called, default messages in English will be shown as follows.
 
 - **snackbarText** = "An update has just been downloaded."
 - **snackbarButton** = "RESTART"
