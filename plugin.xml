@@ -22,7 +22,7 @@
 		<preference name="ANDROIDX_APPCOMPAT_VERSION" default="1.3.0" />
 		<framework src="androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION" />
 
-		<preference name="ANDROID_PLAY_APP_UPDATE_VERSION" default="1.8.0" />
+		<preference name="ANDROID_PLAY_APP_UPDATE_VERSION" default="2.0.0" />
 		<framework src="com.google.android.play:app-update:$ANDROID_PLAY_APP_UPDATE_VERSION" />
 
 		<preference name="ANDROID_MATERIAL_VERSION" default="1.2.0" />
@@ -33,10 +33,6 @@
 				<param name="android-package" value="com.andreszs.inappupdate.InAppUpdate" />
 			</feature>
 		</config-file>
-
-		<edit-config file="AndroidManifest.xml" target="/manifest/application/activity[@android:name='MainActivity']" mode="merge">
-			<activity android:name="MainActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
-		</edit-config>
 
 		<source-file src="src/android/InAppUpdate.java" target-dir="src/com/andreszs/inappupdate" />
 	</platform>
