@@ -22,8 +22,8 @@
 		<preference name="ANDROIDX_APPCOMPAT_VERSION" default="1.3.0" />
 		<framework src="androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION" />
 
-		<preference name="ANDROID_PLAY_CORE_VERSION" default="1.8.0" />
-		<framework src="com.google.android.play:core:$ANDROID_PLAY_CORE_VERSION" />
+		<preference name="ANDROID_PLAY_APP_UPDATE_VERSION" default="1.8.0" />
+		<framework src="com.google.android.play:app-update:$ANDROID_PLAY_APP_UPDATE_VERSION" />
 
 		<preference name="ANDROID_MATERIAL_VERSION" default="1.2.0" />
 		<framework src="com.google.android.material:material:$ANDROID_MATERIAL_VERSION" />

@@ -19,7 +19,7 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.InstallState;
 import com.google.android.play.core.install.InstallStateUpdatedListener;
-import com.google.android.play.core.tasks.Task;
+import com.google.android.gms.tasks.Task;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
