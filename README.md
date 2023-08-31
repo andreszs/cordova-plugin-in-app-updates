@@ -20,23 +20,24 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 
 # Installation
 
-## Version Requirements
+## Plugin Versions
 
-| Plugin version | Cordova CLI | Cordova Android | AndroidX support |
-| --- | --- | --- | --- |
-| 1.0.6 | 9.0.0 | 8.0.0 | No |
-| 2.0.5 | 10.0.0 | 9.0.0 | Yes |
+| Plugin version | Cordova >= | Cordova Android | AndroidX | targetSdkVersion |
+| --- | --- | --- | --- | --- |
+| 1.0.6 | 9.0.0 | 8.0.0 | No | 29 |
+| 2.0.5 | 10.0.0 | 9.0.0 | Yes | 30/31 |
+| 2.1.0 | 10.0.0 | 11.0.0 | Yes | 32 |
 
-## Install latest version
+### Install latest version from NPM
 
 ```bash
   cordova plugin add cordova-plugin-in-app-updates
 ```
 
-## Install version 1.x
+### Install latest version from master
 
 ```bash
-  cordova plugin add cordova-plugin-in-app-updates@1.0.6
+  cordova plugin add https://github.com/andreszs/cordova-plugin-in-app-updates
 ```
 
 # Methods
@@ -191,6 +192,21 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 
 <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_1.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_2.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_3.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_4.jpg?raw=true" width="200" />
 
-# Reporting issues
+# Changelog
 
-Please report any issue with this plugin in GitHub by providing detailed context and sample code.
+### 2.1.0
+
+- Optimized for android-compileSdkVersion 32
+- Minimum cordova-android version set to 11
+- Replaced com.google.android.play:core with the standalone [Play In-App Updates Library](https://developer.android.com/reference/com/google/android/play/core/release-notes-in_app_updates "Play In-App Updates Library") 2.1.0
+- Updated androidx.appcompat:appcompat to 1.5.1
+- Updated com.google.android.material:material to 1.3.0
+- Removed the `edit-config` rule that was setting `android:theme="@style/Theme.AppCompat.NoActionBar"`
+- Tested on Android 5.1, 8.1, 10.
+
+### 2.0.5
+
+- Optimized for android-compileSdkVersion 30
+- Updated androidx.appcompat:appcompat to 1.3.0
+- Updated com.google.android.play:core to 1.8.0
+- Updated com.google.android.material:material to 1.2.0
