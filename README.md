@@ -27,6 +27,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 | 1.0.6 | 9.0.0 | 8.0.0 | No | 29 |
 | 2.0.5 | 10.0.0 | 9.0.0 | Yes | 30/31 |
 | 2.1.0 | 10.0.0 | 11.0.0 | Yes | 32 |
+| 2.2.0 | 10.0.0 | 12.0.0 | Yes | 33 |
 
 ### Install latest version from NPM
 
@@ -193,6 +194,13 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_1.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_2.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_3.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_4.jpg?raw=true" width="200" />
 
 # Changelog
+
+### 2.2.0
+
+- Optimized for android-compileSdkVersion 33
+- Minimum cordova-android version set to 12
+- Updated androidx.appcompat:appcompat to 1.6.1
+- Updated com.google.android.material:material to 1.8.0
 
 ### 2.1.0
 
