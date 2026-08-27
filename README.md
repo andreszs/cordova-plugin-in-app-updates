@@ -190,7 +190,7 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, completionT
 
 # Plugin demo app
 
-- [Compiled APK and reference](https://www.andreszsogon.com/cordova-in-app-update-plugin-demo-app/) including testing procedure instructions
+- [Plugin documentation wiki](https://github.com/andreszs/cordova-plugin-in-app-updates/wiki) with the current demo walkthrough, testing procedures, JavaScript usage, and troubleshooting
 - [Latest demo app version in Play Store](https://play.google.com/store/apps/details?id=com.andreszs.inappupdate.demo)
 - [Source code for www folder](https://github.com/andreszs/cordova-plugin-demos)
 
