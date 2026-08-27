@@ -4,6 +4,21 @@
 
 Cordova Android plugin for checking for updates and auto updating app with Google Play Store In-App updates API.
 
+## Table of contents
+
+- [Platforms](#platforms)
+- [Features](#features)
+- [Installation](#installation)
+  - [Plugin versions](#plugin-versions)
+- [Methods](#methods)
+  - [`getUpdateAvailability()`](#getupdateavailability)
+  - [`updateFlexible()`](#updateflexible)
+  - [`updateImmediate()`](#updateimmediate)
+  - [`setSnackbarOptions()`](#setsnackbaroptions)
+- [Plugin demo app](#plugin-demo-app)
+- [Contribute](#contribute)
+- [Changelog](#changelog)
+
 # Platforms
 
 - Android
@@ -206,11 +221,13 @@ The legacy `setSnackbarOptions()` method configures the message, button text, an
 
 # Contribute
 
-Bug reports and pull requests are welcome. If this plugin is useful in your apps, you can also support its continued development and maintenance through PayPal.
+Contributions are always welcome! If you find a bug or have an improvement in mind, please [open an issue](https://github.com/andreszs/cordova-plugin-in-app-updates/issues) or [submit a pull request](https://github.com/andreszs/cordova-plugin-in-app-updates/pulls). Every bit of feedback helps keep the plugin useful and reliable.
 
-[Contribute via PayPal](https://www.paypal.com/ncp/payment/GEEM324PDD9NC)
+💙 If this plugin saves you time, you can also support its continued development and maintenance through PayPal.
 
-If you cannot contribute financially, starring the repository also helps improve its visibility.
+[Support the project via PayPal](https://www.paypal.com/ncp/payment/GEEM324PDD9NC)
+
+⭐ If financial support is not an option, [star this repository](https://github.com/andreszs/cordova-plugin-in-app-updates) or share it with other Cordova developers—both make a difference.
 
 # Changelog
 
