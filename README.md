@@ -15,8 +15,8 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 - Check for updates
 - Install flexible updates
 - Install immediate updates
-- Customize snackbar message and button for Flexible updates
-- Customize snackbar button color for Flexible updates
+- Customize the completion dialog message and button for flexible updates
+- Customize the completion dialog button color for flexible updates
 
 # Installation
 
@@ -28,6 +28,7 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
 | 2.0.5 | 10.0.0 | 9.0.0 | Yes | 30/31 |
 | 2.1.0 | 10.0.0 | 11.0.0 | Yes | 32 |
 | 2.2.0 | 10.0.0 | 12.0.0 | Yes | 33 |
+| 2.3.0 | 10.0.0 | 11.0.0 or later | Yes | 32 or later |
 
 ### Install latest version from NPM
 
@@ -94,7 +95,7 @@ cordova.plugins.InAppUpdate.updateFlexible(successCallback, errorCallback)
 - **RESULT_IN_APP_UPDATE_FAILED**: Something went wrong with the update dialog response.
 - **ACTIVITY_RESULT_UNKNOWN**: Unknown result code returned by the dialog.
 - **DOWNLOADING**: An update is currently being downloaded in the background.
-- **DOWNLOADED**: The update was downloaded and the snackbar with RESTART button has been shown.
+- **DOWNLOADED**: The update was downloaded and the native completion dialog has been shown. Pressing its configured button calls `completeUpdate()`.
 
 :information_source: Browser platform does nothing and always returns **UPDATE_NOT_AVAILABLE**
 
@@ -149,10 +150,12 @@ cordova.plugins.InAppUpdate.updateImmediate(onSuccess, onFailure);
 
 ## setSnackbarOptions
 
-Sets the label and the button text for the snackbar shown after downloading a flexible update. You are free to call this method at any time. You can also call it again to show different snackbar messages after the snackbar was shown.
+Configures the message, button text, and button color for the completion prompt shown after downloading a flexible update. Since version 2.3.0, this prompt is a native, non-cancelable Android `AlertDialog` instead of a Material Snackbar.
+
+The public method name `setSnackbarOptions()` is preserved for compatibility with existing applications. Its arguments now configure the completion dialog. You may call it at any time, including again after a previous completion prompt was shown.
 
 ```javascript
-cordova.plugins.InAppUpdate.setSnackbarOptions(successCallback, errorCallback,  snackbarText, snackbarButton, snackbarButtonColor)
+cordova.plugins.InAppUpdate.setSnackbarOptions(successCallback, errorCallback, completionText, completionButton, completionButtonColor)
 ```
 
 :information_source: Browser platform does nothing and always returns **SUCCESS**
@@ -166,19 +169,19 @@ var onSuccess = function (strSuccess) {
 var onFailure = function (strError) {
     console.warn(strError);
 };
-var snackbarText = "An update has just been downloaded.";
-var snackbarButton = "RESTART";
-var snackbarButtonColor = "#76FF03";
-cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarText, snackbarButton, snackbarButtonColor);
+var completionText = "An update has just been downloaded.";
+var completionButton = "RESTART";
+var completionButtonColor = "#76FF03";
+cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, completionText, completionButton, completionButtonColor);
 ```
 
-### Snackbar default values
+### Completion dialog default values
 
  If this method is not called, default messages in English will be shown as follows.
 
-- **snackbarText** = "An update has just been downloaded."
-- **snackbarButton** = "RESTART"
-- **snackbarText** = "#76FF03"
+- **completionText** = "An update has just been downloaded."
+- **completionButton** = "RESTART"
+- **completionButtonColor** = "#76FF03"
 
 ### Return values
 
@@ -191,9 +194,32 @@ cordova.plugins.InAppUpdate.setSnackbarOptions(onSuccess, onFailure, snackbarTex
 - [Latest demo app version in Play Store](https://play.google.com/store/apps/details?id=com.andreszs.inappupdate.demo)
 - [Source code for www folder](https://github.com/andreszs/cordova-plugin-demos)
 
-<img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_1.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_2.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_3.jpg?raw=true" width="200" /> <img src="https://github.com/andreszs/cordova-plugin-demos/blob/main/com.andreszs.inappupdate.demo/screenshots/cordova.in_app_updates_4.jpg?raw=true" width="200" />
+The screenshots below show an end-to-end flexible update using plugin 2.3.0. Version 1.4.1 of the demo was installed from Google Play, version 1.4.2 was offered as an update, and accepting the native completion dialog installed and relaunched the updated app.
+
+| Demo and configuration | Update availability | Google Play flexible prompt |
+| --- | --- | --- |
+| <img src="assets/screenshots/cordova.in_app_updates_7_main_2.3.0.png" width="200" alt="In-App Update demo using plugin 2.3.0" /> | <img src="assets/screenshots/cordova.in_app_updates_10_update_available_2.3.0.png" width="200" alt="UPDATE_AVAILABLE result" /> | <img src="assets/screenshots/cordova.in_app_updates_11_flexible_prompt_2.3.0.png" width="200" alt="Google Play flexible update prompt" /> |
+| Completion dialog options | Native completion dialog | Updated demo app |
+| <img src="assets/screenshots/cordova.in_app_updates_8_completion_options_2.3.0.png" width="200" alt="Completion dialog options configured through setSnackbarOptions" /> | <img src="assets/screenshots/cordova.in_app_updates_13_native_completion_dialog_2.3.0.png" width="200" alt="Native non-cancelable completion AlertDialog" /> | <img src="assets/screenshots/cordova.in_app_updates_14_updated_1.4.2_plugin_2.3.0.png" width="200" alt="Demo updated to version 1.4.2 using plugin 2.3.0" /> |
+
+The legacy `setSnackbarOptions()` method configures the message, button text, and button color shown in the native completion dialog. Pressing the configured button calls `completeUpdate()`.
+
+# Contribute
+
+Bug reports and pull requests are welcome. If this plugin is useful in your apps, you can also support its continued development and maintenance through PayPal.
+
+[Contribute via PayPal](https://www.paypal.com/ncp/payment/GEEM324PDD9NC)
+
+If you cannot contribute financially, starring the repository also helps improve its visibility.
 
 # Changelog
+
+### 2.3.0
+
+- Replaced the Material Snackbar used after a flexible update download with a native Android `AlertDialog`.
+- Removed the explicit Material Components and AppCompat dependencies.
+- Preserved the existing JavaScript `setSnackbarOptions()` API; its values now configure the completion dialog.
+- Restored compatibility with cordova-android 11 or later.
 
 ### 2.2.0
 

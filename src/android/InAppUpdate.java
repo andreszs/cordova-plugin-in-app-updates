@@ -1,14 +1,10 @@
 package com.andreszs.inappupdate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.graphics.Color;
-import com.google.android.material.snackbar.Snackbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -22,9 +18,7 @@ import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.gms.tasks.Task;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
@@ -38,19 +32,17 @@ import static com.google.android.play.core.install.model.ActivityResult.RESULT_I
 public class InAppUpdate extends CordovaPlugin {
 
 	private static String LOG_TAG;
-	private static boolean PROMPTED = false;
 	private static int currentUpdateType;
 	private static AppUpdateManager appUpdateManager;
 
 	private final int activityResultRequestCode = 777;
 	private CordovaPlugin activityResultCallback;
-	private FrameLayout layout;
-	private Snackbar snackbar;
+	private AlertDialog completionDialog;
 	private CallbackContext callbackContext;
 
-	private String snackbarText = "An update has just been downloaded.";
-	private String snackbarButton = "RESTART";
-	private String snackbarButtonColor = "#76FF03";
+	private String completionPromptText = "An update has just been downloaded.";
+	private String completionPromptButton = "RESTART";
+	private String completionPromptButtonColor = "#76FF03";
 
 	public InAppUpdate() {
 		this.LOG_TAG = InAppUpdate.class.getSimpleName();
@@ -58,15 +50,8 @@ public class InAppUpdate extends CordovaPlugin {
 	}
 
 	@Override
-	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-		super.initialize(cordova, webView);
-		layout = (FrameLayout) webView.getView().getParent();
-	}
-
-	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		this.callbackContext = callbackContext;
-		this.PROMPTED = false;
 
 		Log.i(LOG_TAG, String.format("Executing the %s action started", action));
 		if (action.equals("getUpdateAvailability")) {
@@ -144,24 +129,52 @@ public class InAppUpdate extends CordovaPlugin {
 		this.activityResultCallback = plugin;
 	}
 
-	private void popupSnackbarForCompleteUpdate() {
-		Log.i(LOG_TAG, "popupSnackbarForCompleteUpdate");
-		this.PROMPTED = true;
+	private void showCompletionDialog() {
+		Log.i(LOG_TAG, "showCompletionDialog");
 
-		cordova.getActivity().runOnUiThread(new Runnable() {
+		final Activity activity = cordova.getActivity();
+		if (activity == null) {
+			Log.w(LOG_TAG, "Unable to show completion dialog because the activity is unavailable");
+			return;
+		}
+
+		activity.runOnUiThread(new Runnable() {
 			public void run() {
 				try {
-					snackbar = Snackbar.make(layout, snackbarText, Snackbar.LENGTH_INDEFINITE);
-					snackbar.setAction(snackbarButton, new View.OnClickListener() {
-						public void onClick(View view) {
-							appUpdateManager.completeUpdate();
+					if (completionDialog != null) {
+						Log.i(LOG_TAG, "Completion dialog is already being shown");
+						return;
+					}
+
+					if (activity.isFinishing() || activity.isDestroyed()) {
+						Log.w(LOG_TAG, "Unable to show completion dialog because the activity is unavailable");
+						return;
+					}
+
+					final AlertDialog dialog = new AlertDialog.Builder(activity)
+						.setMessage(completionPromptText)
+						.setCancelable(false)
+						.setPositiveButton(completionPromptButton, (dialogInterface, which) -> {
+							if (appUpdateManager != null) {
+								appUpdateManager.completeUpdate();
+							}
+						})
+						.create();
+
+					dialog.setCanceledOnTouchOutside(false);
+					dialog.setOnShowListener(dialogInterface -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+						.setTextColor(Color.parseColor(completionPromptButtonColor)));
+					dialog.setOnDismissListener(dialogInterface -> {
+						if (completionDialog == dialog) {
+							completionDialog = null;
 						}
 					});
-					snackbar.setActionTextColor(Color.parseColor(snackbarButtonColor));
-					snackbar.show();
+					completionDialog = dialog;
+					dialog.show();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Log.e(LOG_TAG, e.getMessage());
+					completionDialog = null;
 				}
 			}
 		});
@@ -176,11 +189,11 @@ public class InAppUpdate extends CordovaPlugin {
 		try {
 
 			JSONObject arg_object = args.getJSONObject(0);
-			this.snackbarText = arg_object.getString("strText");
-			this.snackbarButton = arg_object.getString("strButton");
+			this.completionPromptText = arg_object.getString("strText");
+			this.completionPromptButton = arg_object.getString("strButton");
 			String colorHex = arg_object.getString("strButtonColor");
-			if (colorHex != null && colorHex.length() == 7) {
-				this.snackbarButtonColor = colorHex;
+			if (colorHex != null && colorHex.length() == 7 && isValidColor(colorHex)) {
+				this.completionPromptButtonColor = colorHex;
 				result = new PluginResult(PluginResult.Status.OK, "SUCCESS");
 			} else {
 				result = new PluginResult(PluginResult.Status.OK, "SUCCESS (Invalid HEX color specified; ignored)");
@@ -195,6 +208,15 @@ public class InAppUpdate extends CordovaPlugin {
 
 		}
 
+	}
+
+	private boolean isValidColor(String colorHex) {
+		try {
+			Color.parseColor(colorHex);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	private void updateFlexible() {
@@ -225,12 +247,9 @@ public class InAppUpdate extends CordovaPlugin {
 							// Unregister listener
 							appUpdateManager.unregisterListener(installStateUpdatedListener);
 
-							// Prevent multiple consecutive prompts of this event
-							if (!PROMPTED) {
-								popupSnackbarForCompleteUpdate();
-								PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADED");
-								callbackContext.sendPluginResult(result);
-							}
+							showCompletionDialog();
+							PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADED");
+							callbackContext.sendPluginResult(result);
 						} else if (state.installStatus() == InstallStatus.INSTALLED) {
 							// Update installed.
 							Log.i(LOG_TAG, "InstallStateUpdatedListener: InstallStatus.INSTALLED");
@@ -265,7 +284,7 @@ public class InAppUpdate extends CordovaPlugin {
 						// When status updates are no longer needed, unregister the listener.
 						appUpdateManager.unregisterListener(installStateUpdatedListener);
 
-						popupSnackbarForCompleteUpdate();
+						showCompletionDialog();
 						PluginResult result = new PluginResult(PluginResult.Status.OK, "DOWNLOADED");
 						callbackContext.sendPluginResult(result);
 
@@ -435,8 +454,8 @@ public class InAppUpdate extends CordovaPlugin {
 			if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
 				// If the update is downloaded but not installed, notify the user to complete the update.
 				if (currentUpdateType == AppUpdateType.FLEXIBLE) {
-					Log.i(LOG_TAG, "onResume: popupSnackbarForCompleteUpdate");
-					popupSnackbarForCompleteUpdate();
+					Log.i(LOG_TAG, "onResume: showCompletionDialog");
+					showCompletionDialog();
 				} else {
 					Log.i(LOG_TAG, "onResume: startUpdate");
 					try {
@@ -470,6 +489,16 @@ public class InAppUpdate extends CordovaPlugin {
 
 		}
 
+	}
+
+	@Override
+	public void onDestroy() {
+		if (completionDialog != null) {
+			completionDialog.setOnDismissListener(null);
+			completionDialog.dismiss();
+			completionDialog = null;
+		}
+		super.onDestroy();
 	}
 
 }
