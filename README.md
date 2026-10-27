@@ -17,7 +17,6 @@ Cordova Android plugin for checking for updates and auto updating app with Googl
   - [`setSnackbarOptions()`](#setsnackbaroptions)
 - [Plugin demo app](#plugin-demo-app)
 - [Contribute](#contribute)
-- [Changelog](#changelog)
 
 # Platforms
 
@@ -228,36 +227,3 @@ Contributions are always welcome! If you find a bug or have an improvement in mi
 [Support the project via PayPal](https://www.paypal.com/ncp/payment/GEEM324PDD9NC)
 
 ⭐ If financial support is not an option, [star this repository](https://github.com/andreszs/cordova-plugin-in-app-updates) or share it with other Cordova developers—both make a difference.
-
-# Changelog
-
-### 2.3.0
-
-- Replaced the Material Snackbar used after a flexible update download with a native Android `AlertDialog`.
-- Removed the explicit Material Components and AppCompat dependencies.
-- Preserved the existing JavaScript `setSnackbarOptions()` API; its values now configure the completion dialog.
-- Restored compatibility with cordova-android 11 or later.
-
-### 2.2.0
-
-- Optimized for android-compileSdkVersion 33
-- Minimum cordova-android version set to 12
-- Updated androidx.appcompat:appcompat to 1.6.1
-- Updated com.google.android.material:material to 1.8.0
-
-### 2.1.0
-
-- Optimized for android-compileSdkVersion 32
-- Minimum cordova-android version set to 11
-- Replaced com.google.android.play:core with the standalone [Play In-App Updates Library](https://developer.android.com/reference/com/google/android/play/core/release-notes-in_app_updates "Play In-App Updates Library") 2.1.0
-- Updated androidx.appcompat:appcompat to 1.5.1
-- Updated com.google.android.material:material to 1.3.0
-- Removed the `edit-config` rule that was setting `android:theme="@style/Theme.AppCompat.NoActionBar"`
-- Tested on Android 5.1, 8.1, 10.
-
-### 2.0.5
-
-- Optimized for android-compileSdkVersion 30
-- Updated androidx.appcompat:appcompat to 1.3.0
-- Updated com.google.android.play:core to 1.8.0
-- Updated com.google.android.material:material to 1.2.0
